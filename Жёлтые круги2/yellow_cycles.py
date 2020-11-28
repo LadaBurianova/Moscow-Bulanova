@@ -1,19 +1,19 @@
 import sys
-from PyQt5 import uic
 from random import randint
 
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QMainWindow
-from PyQt5.QtGui import QPainter, QColor, QBrush
+from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtGui import QPainter, QColor
+from UI import Ui_MainWindow
 
 
-class YellowCircles(QMainWindow):
+class YellowCircles(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.do_paint = False
         self.initUI()
 
     def initUI(self):
-        uic.loadUi('UI.ui', self)
+        self.setupUi(self)
         self.pushButton.clicked.connect(self.paint)
 
     def paint(self):
@@ -32,7 +32,8 @@ class YellowCircles(QMainWindow):
         diam = randint(1, 300)
         x = randint(0, self.width() - diam)
         y = randint(0, self.height() - diam)
-        qp.setBrush(QColor(255, 204, 0))  # Цвет Яндекса
+        r, g, b = randint(0, 255), randint(0, 255), randint(0, 255)
+        qp.setBrush(QColor(r, g, b))
         qp.drawEllipse(x, y, diam, diam)
         self.do_paint = False
 
